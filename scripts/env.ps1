@@ -11,15 +11,16 @@ if ($env:VSINSTALLDIR -eq $null) {
   Write-Host "Loading Visual Studio environment, this may take a second..."
   $vsDir = Get-ChildItem -Path "C:\Program Files\Microsoft Visual Studio\2022" -Directory
   if ($vsDir -eq $null) {
-      throw "Visual Studio directory not found."
+    throw "Visual Studio directory not found."
   } 
   Push-Location $vsDir.FullName
   try {
-    . (Join-Path -Path $vsDir.FullName -ChildPath "Common7\Tools\Launch-VsDevShell.ps1") -Arch amd64 -HostArch amd64
-  } finally { Pop-Location }
+    . (Join-Path -Path $vsDir.FullName -ChildPath "Common7\Tools\Launch-VsDevShell.ps1") -Arch arm64
+  }
+  finally { Pop-Location }
 }
 
-if($Env:VSCMD_ARG_TGT_ARCH -eq "x86") {
+if ($Env:VSCMD_ARG_TGT_ARCH -eq "x86") {
   # Please do not try to compile Bun for 32 bit. It will not work. I promise.
   throw "Visual Studio environment is targetting 32 bit. This configuration is definetly a mistake."
 }

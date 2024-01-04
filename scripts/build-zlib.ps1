@@ -10,12 +10,12 @@ try {
   # to account for clang-cl, which implements `__builtin_ctzl` and `__builtin_expect`
   $textToReplace = [regex]::Escape("int __inline __builtin_ctzl(unsigned long mask)") + "[^}]*}"
   $fileContent = Get-Content "deflate.h" -Raw
-  if ($fileContent -match $textToReplace) {
-    Set-Content -Path "deflate.h" -Value ($fileContent -replace $textToReplace, "")
-  }
-  else {
-    throw "Failed to patch deflate.h"
-  }
+  #if ($fileContent -match $textToReplace) {
+  #  Set-Content -Path "deflate.h" -Value ($fileContent -replace $textToReplace, "")
+  #}
+  #else {
+  #  throw "Failed to patch deflate.h"
+  #}
 
   Set-Location (mkdir -Force build)
   
